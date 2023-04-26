@@ -1,0 +1,128 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-329e4fd4.css",
+    "isEntry": true,
+    "src": "resources/css/app.css"
+  },
+  "resources/images/avatar.jpg": {
+    "file": "assets/avatar-622e047b.jpg",
+    "src": "resources/images/avatar.jpg"
+  },
+  "resources/images/logo.jpg": {
+    "file": "assets/logo-b07f17c6.jpg",
+    "src": "resources/images/logo.jpg"
+  },
+  "resources/images/pic01.jpg": {
+    "file": "assets/pic01-50533936.jpg",
+    "src": "resources/images/pic01.jpg"
+  },
+  "resources/images/pic02.jpg": {
+    "file": "assets/pic02-213f0021.jpg",
+    "src": "resources/images/pic02.jpg"
+  },
+  "resources/images/pic03.jpg": {
+    "file": "assets/pic03-8e388147.jpg",
+    "src": "resources/images/pic03.jpg"
+  },
+  "resources/images/pic04.jpg": {
+    "file": "assets/pic04-9a75e59f.jpg",
+    "src": "resources/images/pic04.jpg"
+  },
+  "resources/images/pic05.jpg": {
+    "file": "assets/pic05-217fd60b.jpg",
+    "src": "resources/images/pic05.jpg"
+  },
+  "resources/images/pic06.jpg": {
+    "file": "assets/pic06-0e520413.jpg",
+    "src": "resources/images/pic06.jpg"
+  },
+  "resources/images/pic07.jpg": {
+    "file": "assets/pic07-f11fe274.jpg",
+    "src": "resources/images/pic07.jpg"
+  },
+  "resources/images/pic08.jpg": {
+    "file": "assets/pic08-0d5396aa.jpg",
+    "src": "resources/images/pic08.jpg"
+  },
+  "resources/images/pic09.jpg": {
+    "file": "assets/pic09-7731e5b5.jpg",
+    "src": "resources/images/pic09.jpg"
+  },
+  "resources/images/pic10.jpg": {
+    "file": "assets/pic10-3f722763.jpg",
+    "src": "resources/images/pic10.jpg"
+  },
+  "resources/images/pic11.jpg": {
+    "file": "assets/pic11-1b7ab00d.jpg",
+    "src": "resources/images/pic11.jpg"
+  },
+  "resources/images/pic12.jpg": {
+    "file": "assets/pic12-0e3ef937.jpg",
+    "src": "resources/images/pic12.jpg"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-a6d2e222.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/webfonts/fa-brands-400.eot": {
+    "file": "assets/fa-brands-400-e4299464.eot",
+    "src": "resources/webfonts/fa-brands-400.eot"
+  },
+  "resources/webfonts/fa-brands-400.svg": {
+    "file": "assets/fa-brands-400-a3b98177.svg",
+    "src": "resources/webfonts/fa-brands-400.svg"
+  },
+  "resources/webfonts/fa-brands-400.ttf": {
+    "file": "assets/fa-brands-400-cda59d6e.ttf",
+    "src": "resources/webfonts/fa-brands-400.ttf"
+  },
+  "resources/webfonts/fa-brands-400.woff": {
+    "file": "assets/fa-brands-400-f9217f66.woff",
+    "src": "resources/webfonts/fa-brands-400.woff"
+  },
+  "resources/webfonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400-8ea87917.woff2",
+    "src": "resources/webfonts/fa-brands-400.woff2"
+  },
+  "resources/webfonts/fa-regular-400.eot": {
+    "file": "assets/fa-regular-400-79d08806.eot",
+    "src": "resources/webfonts/fa-regular-400.eot"
+  },
+  "resources/webfonts/fa-regular-400.svg": {
+    "file": "assets/fa-regular-400-be0a0849.svg",
+    "src": "resources/webfonts/fa-regular-400.svg"
+  },
+  "resources/webfonts/fa-regular-400.ttf": {
+    "file": "assets/fa-regular-400-e8711bbb.ttf",
+    "src": "resources/webfonts/fa-regular-400.ttf"
+  },
+  "resources/webfonts/fa-regular-400.woff": {
+    "file": "assets/fa-regular-400-cb9e9e69.woff",
+    "src": "resources/webfonts/fa-regular-400.woff"
+  },
+  "resources/webfonts/fa-regular-400.woff2": {
+    "file": "assets/fa-regular-400-e42a8844.woff2",
+    "src": "resources/webfonts/fa-regular-400.woff2"
+  },
+  "resources/webfonts/fa-solid-900.eot": {
+    "file": "assets/fa-solid-900-373c04fd.eot",
+    "src": "resources/webfonts/fa-solid-900.eot"
+  },
+  "resources/webfonts/fa-solid-900.svg": {
+    "file": "assets/fa-solid-900-9674eb1b.svg",
+    "src": "resources/webfonts/fa-solid-900.svg"
+  },
+  "resources/webfonts/fa-solid-900.ttf": {
+    "file": "assets/fa-solid-900-af639750.ttf",
+    "src": "resources/webfonts/fa-solid-900.ttf"
+  },
+  "resources/webfonts/fa-solid-900.woff": {
+    "file": "assets/fa-solid-900-3f6d3488.woff",
+    "src": "resources/webfonts/fa-solid-900.woff"
+  },
+  "resources/webfonts/fa-solid-900.woff2": {
+    "file": "assets/fa-solid-900-9834b82a.woff2",
+    "src": "resources/webfonts/fa-solid-900.woff2"
+  }
+}
