@@ -19,21 +19,20 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+  return view('welcome');
 });
 
 Route::get('/post', function () {
-    return view('post');
+  return view('post');
 });
 
 Route::get('/posts', function () {
-//   $posts = DB::table('posts')->get();
-//   dd($posts[2]->title);
-//   dd($posts->pluck('title'));
-//   $posts = DB::table('posts')->first();
+  //   $posts = DB::table('posts')->get();
+  //   dd($posts[2]->title);
+  //   dd($posts->pluck('title'));
+  //   $posts = DB::table('posts')->first();
   $posts = DB::table('posts')->select('title', 'body')->find(4);
   dd($posts);
-
 });
 
 Route::get('/posts-count', function () {
@@ -58,13 +57,13 @@ Route::get('/filtered-posts', function () {
 });
 
 Route::get('/posts-by-day', function () {
-    $posts = DB::table('posts')
+  $posts = DB::table('posts')
     //   ->select(DB::raw('DATE(published_at) as day, COUNT(*) AS posts_by_day'))
-      ->selectRaw('DATE(published_at) as day, COUNT(*) AS posts_by_day')
-      ->groupBy('day')
-      ->having('day', '<>', '2023-04-10')
-      ->get();
-    dd($posts);
+    ->selectRaw('DATE(published_at) as day, COUNT(*) AS posts_by_day')
+    ->groupBy('day')
+    ->having('day', '<>', '2023-04-10')
+    ->get();
+  dd($posts);
 });
 
 Route::get('/latest-posts', function () {
@@ -109,7 +108,7 @@ Route::get('/insert-post', function () {
 Route::get('/insert-posts', function () {
   $postsCount = fake()->randomDigitNotNull();
   $posts = [];
-  for ($i=0; $i < $postsCount; $i++) {
+  for ($i = 0; $i < $postsCount; $i++) {
     $posts[] = [
       'title' => fake()->sentence(1),
       'slug' => fake()->slug(2),
@@ -136,6 +135,15 @@ Route::get('/delete-latest-post', function () {
 });
 
 Route::get('/delete-posts', function () {
-//   DB::table('posts')->delete();
+  //   DB::table('posts')->delete();
   DB::table('posts')->truncate();
+});
+
+Route::get('/post/{post}/rating', function ($post) {
+  $result = DB::table('ratings')
+    ->join('posts', 'ratings.id', '=', 'posts.rating_id')
+    ->select('title', 'body', 'score')
+    ->where('post_id', $post)
+    ->first();
+  dd($result);
 });
