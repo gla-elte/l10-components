@@ -147,3 +147,4 @@ Route::get('/post/{post}/rating', function ($post) {
     ->first();
   dd($result);
 });
+// azure teszt
