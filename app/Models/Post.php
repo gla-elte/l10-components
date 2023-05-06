@@ -15,8 +15,12 @@ class Post extends Model
   protected $fillable = ['title', 'slug', 'body', 'published_at', 'rating_id'];
   // protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
-  public function rating()
-  {
-    return $this->hasOne(Rating::class);
+//   public function rating()
+//   {
+//     return $this->hasOne(Rating::class);
+//   }
+
+  public function category() {
+    return $this->belongsTo(Category::class);
   }
 }
