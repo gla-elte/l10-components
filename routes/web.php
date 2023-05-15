@@ -2,6 +2,7 @@
 
 // importáljuk a DB Facade-ot
 
+use App\Http\Controllers\CategoryController;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -148,3 +149,16 @@ Route::get('/post/{post}/rating', function ($post) {
   dd($result);
 });
 // azure teszt
+
+// Route::get('/categories/create', [CategoryController::class, 'create']);
+// Route::post('/categories', [CategoryController::class, 'store']);
+
+// Route::get('/categories/{id}/edit', [CategoryController::class, 'edit']);
+// Route::put('/categories/{id}', [CategoryController::class, 'update']);
+
+// Route::delete('/categories/{id}', [CategoryController::class, 'destroy']);
+
+// Route::get('/categories', [CategoryController::class, 'index']);
+// Route::get('/categories/{id}', [CategoryController::class, 'show']);
+
+Route::resource('categories', CategoryController::class);
