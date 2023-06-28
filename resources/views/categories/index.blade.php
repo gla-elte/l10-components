@@ -1,5 +1,5 @@
 <h1>Kategóriák</h1>
-<a href="categories/create">Létrehozás</a>
+<a href="/categories/create">Létrehozás</a>
 <table>
   <thead>
     <tr>
@@ -10,8 +10,8 @@
   <tbody>
     @foreach ($categories as $category)
       <tr>
-        <td><a href="categories/{{ $category->id }}">{{ $category->name }}</a></td>
-        <td><a href="categories/{{ $category->id }}/edit">Szerkesztés</a></td>
+        <td><a href="/categories/{{ $category->id }}">{{ $category->name }}</a></td>
+        <td><a href="/categories/{{ $category->id }}/edit">Szerkesztés</a></td>
       </tr>
     @endforeach
   </tbody>

@@ -2,10 +2,11 @@
 
 // importáljuk a DB Facade-ot
 
-use App\Http\Controllers\CategoryController;
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\CategoryController;
 
 
 /*
@@ -162,3 +163,5 @@ Route::get('/post/{post}/rating', function ($post) {
 // Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
 Route::resource('categories', CategoryController::class);
+
+Route::resource('posts', PostController::class);
