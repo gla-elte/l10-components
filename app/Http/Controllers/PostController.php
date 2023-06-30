@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Post;
 use App\Models\Rating;
 use Illuminate\Http\Request;
@@ -23,7 +24,9 @@ class PostController extends Controller
    */
   public function create()
   {
-    //
+    return view('posts.create', [
+      'categories' => Category::orderBy('name')->get(),
+    ]);
   }
 
   /**
@@ -31,7 +34,18 @@ class PostController extends Controller
    */
   public function store(Request $request)
   {
-    //
+    $rating_id = Rating::create(['score' => request('score')])->id;
+
+    Post::create([
+      'title' => request('title'),
+      'slug' => request('slug'),
+      'body' => request('body'),
+      'category_id' => request('category_id'),
+      'published_at' => request('published_at'),
+      'rating_id' => $rating_id,
+    ]);
+
+    return redirect('/posts');
   }
 
   /**
