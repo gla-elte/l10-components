@@ -4,7 +4,7 @@
 <p>Kategóriához tartozó blogbejegyzések:</p>
 <ul>
   @forelse ($category->posts as $post)
-    <li><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></li>
+    <li><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></li>
   @empty
     <li>Nem tartozik még a kategóriához blogbejegyzés.</li>
   @endforelse

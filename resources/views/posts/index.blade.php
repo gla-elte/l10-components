@@ -1,5 +1,5 @@
 <h1>Blogbejegyzések</h1>
-<a href="/posts/create">Létrehozás</a>
+<a href="{{ route('posts.create') }}">Létrehozás</a>
 <table>
   <thead>
     <tr>
@@ -8,11 +8,11 @@
     </tr>
   </thead>
   <tbody>
-    @foreach ($posts as $post)
-      <tr>
-        <td><a href="/posts/{{ $post->id }}">{{ $post->title }}</a></td>
-        <td><a href="/posts/{{ $post->id }}/edit">Szerkesztés</a></td>
-      </tr>
-    @endforeach
+  @foreach ($posts as $post)
+    <tr>
+      <td><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></td>
+      <td><a href="{{ route('posts.edit', $post->id) }}">Szerkesztés</a></td>
+    </tr>
+  @endforeach
   </tbody>
 </table>
