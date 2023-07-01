@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 // importálás az osztály előtt:
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Post extends Model
 {
@@ -19,6 +20,14 @@ class Post extends Model
   //   {
   //     return $this->hasOne(Rating::class);
   //   }
+
+
+  protected function publishedAt(): Attribute
+  {
+    return Attribute::make(
+        get: fn (string $value) => \Carbon\Carbon::parse($value)->format('Y-m-d H:i'),
+    );
+  }
 
   public function category() {
     return $this->belongsTo(Category::class);
