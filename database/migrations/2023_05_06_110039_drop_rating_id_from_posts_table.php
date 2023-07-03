@@ -11,9 +11,9 @@ return new class extends Migration
    */
   public function up(): void
   {
-    Schema::table('ratings', function (Blueprint $table) {
-      $table->dropForeign('ratings_post_id_foreign');
-      $table->dropColumn('post_id');
+    Schema::table('posts', function (Blueprint $table) {
+      $table->dropForeign('posts_rating_id_foreign');
+      $table->dropColumn('rating_id');
     });
   }
 
@@ -22,9 +22,9 @@ return new class extends Migration
    */
   public function down(): void
   {
-    Schema::table('ratings', function (Blueprint $table) {
-      $table->unsignedBigInteger('post_id')->nullable();
-      $table->foreign('post_id')->references('id')->on('posts');
+    Schema::table('posts', function (Blueprint $table) {
+      $table->unsignedBigInteger('rating_id')->nullable();
+      $table->foreign('rating_id')->references('id')->on('ratings');
     });
   }
 };

@@ -11,8 +11,8 @@ class Rating extends Model
 
   protected $fillable = ['score', 'post_id'];
 
-  public function post()
-  {
-    return $this->hasOne(Post::class);
-  }
+//   public function post()
+//   {
+//     return $this->hasOne(Post::class);
+//   }
 }

@@ -26,7 +26,7 @@
   </div>
   <div>
     <label for="published_at">Publikálás:</label>
-    <input type="datetime-local" name="published_at" id="published_at" value="{{ now()->format('Y-m-d\TH:i') }}">
+    <input type="datetime-local" name="published_at" id="published_at" value="{{ now()->format('Y-m-d H:i') }}">
   </div>
   <input type="submit" value="Mentés">
 </form>
