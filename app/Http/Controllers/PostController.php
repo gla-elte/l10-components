@@ -35,15 +35,17 @@ class PostController extends Controller
    */
   public function store(Request $request)
   {
-    $rating_id = Rating::create(['score' => request('score')])->id;
-
-    Post::create([
+    $post = Post::create([
       'title' => request('title'),
       'slug' => request('slug'),
       'body' => request('body'),
       'category_id' => request('category_id'),
       'published_at' => request('published_at'),
-      'rating_id' => $rating_id,
+    ]);
+
+    Rating::create([
+      'score' => request('score'),
+      'post_id' => $post->id,
     ]);
 
     return redirect(route('posts.index'));
@@ -54,8 +56,8 @@ class PostController extends Controller
    */
   public function show(Post $post)
   {
-    $score = Rating::find($post->rating_id)->score;
-    return view('posts.show', compact('post','score'));
+    //$score = Rating::find($post->rating_id)->score;
+    return view('posts.show', compact('post'));
   }
 
   /**
@@ -64,8 +66,7 @@ class PostController extends Controller
   public function edit(Post $post)
   {
     $categories = Category::orderBy('name')->get();
-    $score = Rating::find($post->rating_id)->score;
-    return view('posts.edit', compact('post','categories', 'score'));
+    return view('posts.edit', compact('post','categories'));
   }
 
   /**
@@ -81,7 +82,7 @@ class PostController extends Controller
       'published_at' => request('published_at'),
     ]);
 
-    Rating::find($post->rating_id)->update(['score' => request('score')]);
+    Rating::where('post_id', $post->id)->update(['score' => request('score')]);
 
     return redirect(route('posts.index'));
   }
@@ -89,8 +90,10 @@ class PostController extends Controller
   /**
    * Remove the specified resource from storage.
    */
-  public function destroy(string $id)
+  public function destroy(Post $post)
   {
-    //
+    $post->delete();
+
+    return redirect(route('posts.index'));
   }
 }

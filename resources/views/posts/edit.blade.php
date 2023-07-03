@@ -23,11 +23,17 @@
   </div>
   <div>
     <label for="score">Értékelés:</label>
-    <input type="number" id="score" name="score" min="1.0" max="10.0" step="0.1" value="{{ $score }}" />
+    <input type="number" id="score" name="score" min="1.0" max="10.0" step="0.1" value="{{ $post->rating->score }}" />
   </div>
   <div>
     <label for="published_at">Publikálás:</label>
     <input type="datetime-local" name="published_at" id="published_at" value="{{ $post->published_at }}">
   </div>
   <input type="submit" value="Frissítés">
+</form>
+
+<form action="{{ route('posts.destroy', $post->id) }}" method="post">
+  @csrf
+  @method('delete')
+  <input type="submit" value="Törlés">
 </form>
