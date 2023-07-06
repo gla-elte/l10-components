@@ -29,6 +29,16 @@
     <label for="published_at">Publikálás:</label>
     <input type="datetime-local" name="published_at" id="published_at" value="{{ $post->published_at }}">
   </div>
+  <div>
+    <label for="tags">Címkéi:</label>
+    <select name="tags[]" id="tags" multiple>
+      @forelse ($tags as $tag)
+        <option value="{{ $tag->id }}" @selected($post->tags->pluck('id')->contains($tag->id)) >{{ $tag->name }}</option>
+      @empty
+        <option value="0">Nincs még címke a blogon</option>
+      @endforelse
+    </select>
+  </div>
   <input type="submit" value="Frissítés">
 </form>
 
