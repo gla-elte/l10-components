@@ -35,7 +35,7 @@ class TagController extends Controller
   {
     Tag::create([
       'name' => request('name')
-    ]);
+    ])->posts()->attach('posts');
 
     return redirect(route('tags.index'));
   }

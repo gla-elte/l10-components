@@ -50,6 +50,8 @@ class PostController extends Controller
       'post_id' => $post->id,
     ]);
 
+    $post->tags()->attach(request('tags'));
+
     return redirect(route('posts.index'));
   }
 
