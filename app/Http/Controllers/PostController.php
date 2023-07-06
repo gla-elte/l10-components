@@ -99,7 +99,9 @@ class PostController extends Controller
    */
   public function destroy(Post $post)
   {
-    $post->delete();
+    $post->delete(); // $post->forceDelete(); // ==> ennek használata esetén a kapcsolatok is törlődnek
+
+    $post->tags()->sync([]); // $post->tags()->detach($post->tags);
 
     return redirect(route('posts.index'));
   }
