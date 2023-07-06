@@ -28,5 +28,15 @@
     <label for="published_at">Publikálás:</label>
     <input type="datetime-local" name="published_at" id="published_at" value="{{ now()->format('Y-m-d H:i') }}">
   </div>
+  <div>
+    <label for="tags">Címkéi:</label>
+    <select name="tags[]" id="tags" multiple>
+      @forelse ($tags as $tag)
+        <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+      @empty
+        <option value="0">Nincs még címke a blogon</option>
+      @endforelse
+    </select>
+  </div>
   <input type="submit" value="Mentés">
 </form>

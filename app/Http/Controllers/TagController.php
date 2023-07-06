@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,9 @@ class TagController extends Controller
    */
   public function create()
   {
-    return view('tags.create');
+    return view('tags.create', [
+        'posts' => Post::orderBy('title')->get(),
+    ]);
   }
 
   /**

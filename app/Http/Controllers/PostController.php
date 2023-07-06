@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\Rating;
 use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -27,6 +28,7 @@ class PostController extends Controller
   {
     return view('posts.create', [
       'categories' => Category::orderBy('name')->get(),
+      'tags' => Tag::orderBy('name')->get(),
     ]);
   }
 
