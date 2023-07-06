@@ -87,6 +87,8 @@ class PostController extends Controller
       'published_at' => request('published_at'),
     ]);
 
+    $post->tags()->sync(request('tags'));
+
     Rating::where('post_id', $post->id)->update(['score' => request('score')]);
 
     return redirect(route('posts.index'));

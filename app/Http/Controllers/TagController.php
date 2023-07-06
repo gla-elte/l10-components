@@ -66,6 +66,8 @@ class TagController extends Controller
       'name' => request('name')
     ]);
 
+    $tag->posts()->sync(request('posts'));
+
     return redirect(route('tags.index'));
   }
 
