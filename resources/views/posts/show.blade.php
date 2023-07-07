@@ -13,4 +13,12 @@
   <li>Nincs hozzárendelve címke a blogbejegyzéshez.</li>
   @endforelse
 </ul>
+<h3>Kapcsolódó kommentek:</h3>
+<ul>
+  @forelse ($post->comments as $comment)
+  <li>{{ $comment->username . ": " . $comment->content }}</li>
+  @empty
+  <li>Nincs komment a blogbejegyzéshez.</li>
+  @endforelse
+</ul>
 <a href="/posts">Vissza a listára</a>
