@@ -166,6 +166,7 @@ Route::get('/post/{post}/rating', function ($post) {
 Route::resource('categories', CategoryController::class);
 
 Route::resource('posts', PostController::class);
+// Route::get('/posts/{post:slug}',[PostController::class, 'show'])->name('posts.show');
 
 Route::resource('tags', TagController::class);
 
