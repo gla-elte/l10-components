@@ -105,4 +105,9 @@ class PostController extends Controller
 
     return redirect(route('posts.index'));
   }
+
+  public function getCategorysPostsFromTo($category, $from, $to = null)
+  {
+    return Post::getFilteredPosts($category, $from, $to);
+  }
 }

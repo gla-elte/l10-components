@@ -167,6 +167,7 @@ Route::resource('categories', CategoryController::class);
 
 Route::resource('posts', PostController::class);
 // Route::get('/posts/{post:slug}',[PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/{category:name}/{from}/{to?}', [PostController::class, 'getCategorysPostsFromTo']);
 
 Route::resource('tags', TagController::class);
 
