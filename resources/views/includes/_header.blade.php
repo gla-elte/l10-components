@@ -1,10 +1,10 @@
 <header id="header">
-    <h1><a href="index.html">Future Imperfect</a></h1>
+    <h1><a href="{{ route('home') }}">Future Imperfect</a></h1>
     <nav class="links">
         <ul>
-            <li><a href="#">Lorem</a></li>
-            <li><a href="#">Ipsum</a></li>
-            <li><a href="#">Feugiat</a></li>
+            <li><a href="{{ route('categories.index')}}">Categories</a></li>
+            <li><a href="{{ route('tags.index')}}">Tags</a></li>
+            <li><a href="{{ route('posts.index')}}">Posts</a></li>
             <li><a href="#">Tempus</a></li>
             <li><a href="#">Adipiscing</a></li>
         </ul>

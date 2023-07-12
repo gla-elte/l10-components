@@ -6,7 +6,7 @@
 
 /* Post */
 
-	.post {
+	.post, .category, .tag {
 		@include padding(_size(section-spacing), _size(section-spacing));
 		background: _palette(bg);
 		border: solid 1px _palette(border);

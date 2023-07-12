@@ -22,8 +22,10 @@ use App\Http\Controllers\CommentController;
 */
 
 Route::get('/', function () {
-  return view('welcome');
-});
+  return view('home', [
+    'posts' => Post::paginate(3),
+  ]);
+})->name('home');
 
 Route::get('/post', function () {
   return view('post');
