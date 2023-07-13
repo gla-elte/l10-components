@@ -1,18 +1,23 @@
+@extends('app')
+@section('main')
+<article class="tag">
 <form action="{{ route('tags.store') }}" method="post">
   @csrf
-  <div>
-    <label for="name">Cimke neve:</label>
+  <p>
+    <label for="name">Tag's name:</label>
     <input type="text" name="name" id="name" />
-  </div>
-  <div>
-    <label for="posts">Blogbejegyzései:</label>
-    <select name="posts[]" id="posts" multiple>
+  </p>
+  <p>
+    <label for="posts">Related posts:</label>
+    <select name="posts[]" id="posts" multiple style="height: 100%" size="10">
       @forelse ($posts as $post)
         <option value="{{ $post->id }}">{{ $post->title }}</option>
       @empty
-        <option value="0">Nincs még olyan blogbejegyzés, ami ehhez a címkéhez tartozna a blogon</option>
+        <option value="0">-</option>
       @endforelse
     </select>
-  </div>
-  <input type="submit" value="Mentés">
+  </p>
+  <input type="submit" value="Save">
 </form>
+</article>
+@endsection
