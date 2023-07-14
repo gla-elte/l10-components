@@ -5,8 +5,7 @@
             <li><a href="{{ route('categories.index')}}">Categories</a></li>
             <li><a href="{{ route('tags.index')}}">Tags</a></li>
             <li><a href="{{ route('posts.index')}}">Posts</a></li>
-            <li><a href="#">Tempus</a></li>
-            <li><a href="#">Adipiscing</a></li>
+            <li><a href="{{ route('comments.index')}}">Comments</a></li>
         </ul>
     </nav>
     <nav class="main">
