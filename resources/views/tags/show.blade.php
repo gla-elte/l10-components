@@ -17,4 +17,5 @@
             @endforelse
         </ul>
         <a href="{{ route('tags.index') }}">Back to the list</a>
-    @endsection
+    </article>
+@endsection
