@@ -27,8 +27,8 @@ class PostController extends Controller
   public function create()
   {
     return view('posts.create', [
-      'categories' => Category::orderBy('name')->get(),
-      'tags' => Tag::orderBy('name')->get(),
+      'categories' => Category::orderBy('name')->get(['id', 'name'])->pluck('name', 'id'),
+      'tags' => Tag::orderBy('name')->get(['id', 'name'])->pluck('name', 'id'),
     ]);
   }
 
@@ -69,8 +69,8 @@ class PostController extends Controller
    */
   public function edit(Post $post)
   {
-    $categories = Category::orderBy('name')->get();
-    $tags = Tag::orderBy('name')->get();
+    $categories = Category::orderBy('name')->get(['id', 'name'])->pluck('name', 'id');
+    $tags = Tag::orderBy('name')->get(['id', 'name'])->pluck('name', 'id');
     return view('posts.edit', compact('post','categories', 'tags'));
   }
 
