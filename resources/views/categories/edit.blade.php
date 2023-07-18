@@ -1,6 +1,11 @@
 @extends('app')
 @section('main')
 <article class="category">
+  <header>
+    <div class="title">
+      <h1>Edit/Delete category</h1>
+    </div>
+  </header>
   <x-form action="{{ route('categories.update', $category->id) }}" method="put">
     <p>
       <label for="nev">Category's name:</label>

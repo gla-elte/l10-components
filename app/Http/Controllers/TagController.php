@@ -24,7 +24,7 @@ class TagController extends Controller
   public function create()
   {
     return view('tags.create', [
-        'posts' => Post::orderBy('title')->get(),
+        'posts' => Post::getPostsForSelectOptions(),
     ]);
   }
 
@@ -53,7 +53,7 @@ class TagController extends Controller
    */
   public function edit(Tag $tag)
   {
-    $posts = Post::orderBy('title')->get();
+    $posts = Post::getPostsForSelectOptions();
     return view('tags.edit', compact('tag', 'posts'));
   }
 

@@ -24,7 +24,7 @@ class CommentController extends Controller
     public function create()
     {
         return view('comments.create', [
-            'posts' => Post::orderBy('title')->get(),
+            'posts' => Post::getPostsForSelectOptions(),
         ]);
     }
 
@@ -55,7 +55,7 @@ class CommentController extends Controller
      */
     public function edit(Comment $comment)
     {
-        $posts = Post::orderBy('title')->get();
+        $posts = Post::getPostsForSelectOptions();
         return view('comments.edit', compact('comment','posts'));
     }
 

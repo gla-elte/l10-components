@@ -1,6 +1,11 @@
 @extends('app')
 @section('main')
 <article class="post">
+  <header>
+    <div class="title">
+      <h1>Edit/Delete post</h1>
+    </div>
+  </header>
   <x-form action="{{ route('posts.update', $post->id) }}" method="put">
     <div>
       <label for="title">Title:</label>

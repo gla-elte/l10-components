@@ -56,4 +56,9 @@ class Post extends Model
       ->whereBetween('published_at', [$from, $to])
       ->get();
   }
+
+  public static function getPostsForSelectOptions()
+  {
+    return Post::orderBy('title')->get(['id', 'title'])->pluck('title', 'id');
+  }
 }

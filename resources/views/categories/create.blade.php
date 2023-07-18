@@ -1,6 +1,11 @@
 @extends('app')
 @section('main')
 <article class="category">
+  <header>
+    <div class="title">
+      <h1>New category</h1>
+    </div>
+  </header>
   <x-form
     method="post"
     action="{{ route('categories.store') }}"

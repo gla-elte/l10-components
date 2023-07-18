@@ -1,6 +1,11 @@
 @extends('app')
 @section('main')
 <article class="post">
+  <header>
+    <div class="title">
+      <h1>New post</h1>
+    </div>
+  </header>
   <x-form action="{{ route('posts.store') }}" method="post">
     <div>
       <label for="title">Title:</label>
