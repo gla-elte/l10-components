@@ -6,7 +6,12 @@
       <h1>Edit/Delete post</h1>
     </div>
   </header>
-  <x-form action="{{ route('posts.update', $post->id) }}" method="put">
+<x-form
+  action="{{ route('posts.update', $post->id) }}"
+  method="put"
+  name="post-edit"
+  onsubmit="return validateForm();"
+>
     <div>
       <label for="title">Title:</label>
       <input type="text" name="title" id="title" value="{{ $post->title }}"/>
@@ -43,3 +48,21 @@
   </x-form-button>
 </article>
 @endsection
+
+@push('validation-scripts')
+<script>
+function validateForm() {
+  const title = document.forms["post-edit"]["title"].value;
+  if (title == "") {
+    alert("The title field is required.");
+    return false;
+  }
+
+  const tags = document.forms["post-edit"]["tags[]"].selectedOptions;
+  if(tags.length < 1) {
+    alert("Minimum 1 selected tag is required.");
+    return false;
+  }
+}
+</script>
+@endpush
