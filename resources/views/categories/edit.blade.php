@@ -6,10 +6,16 @@
       <h1>Edit/Delete category</h1>
     </div>
   </header>
-  <x-form action="{{ route('categories.update', $category->id) }}" method="put">
+  @include('includes._errors')
+  <x-form
+    action="{{ route('categories.update', $category->id) }}"
+    method="put"
+    novalidate
+  >
     <p>
       <label for="nev">Category's name:</label>
-      <input type="text" name="name" id="nev" value="{{ $category->name }}">
+      <input type="text" name="name" id="nev" required maxlength="255" value="{{ $category->name ?? old('name') }}">
+      <x-input-error for="name" />
     </p>
     <input type="submit" value="Update">
   </x-form>
