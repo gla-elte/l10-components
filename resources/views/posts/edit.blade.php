@@ -6,7 +6,6 @@
       <h1>Edit/Delete post</h1>
     </div>
   </header>
-  @include('includes._errors')
   <x-form
     action="{{ route('posts.update', $post->id) }}"
     method="put"

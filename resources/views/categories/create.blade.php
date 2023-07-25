@@ -6,7 +6,6 @@
       <h1>New category</h1>
     </div>
   </header>
-  @include('includes._errors')
   <x-form
     method="post"
     action="{{ route('categories.store') }}"

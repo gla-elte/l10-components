@@ -3,6 +3,7 @@
   'action' => ''
 ])
 
+@include('includes._errors')
 <form
   method="{{ $method === 'GET' ? 'GET' : 'POST' }}"
   action="{{ $action }}"

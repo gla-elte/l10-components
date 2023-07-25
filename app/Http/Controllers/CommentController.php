@@ -31,13 +31,9 @@ class CommentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store()
     {
-        Comment::create([
-            'username' => request('username'),
-            'content' => request('content'),
-            'post_id' => request('post_id'),
-        ]);
+        Comment::create($this->validateComment());
 
         return redirect(route('comments.index'));
     }
@@ -62,13 +58,9 @@ class CommentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Comment $comment)
+    public function update(Comment $comment)
     {
-        $comment->update([
-            'username' => request('username'),
-            'content' => request('content'),
-            'post_id' => request('post_id'),
-        ]);
+        $comment->update($this->validateComment());
 
         return redirect(route('comments.index'));
     }
@@ -81,5 +73,13 @@ class CommentController extends Controller
         $comment->delete();
 
         return redirect(route('comments.index'));
+    }
+
+    function validateComment() : array {
+      return request()->validate([
+        'username' => 'required|max:255',
+        'content' => 'required',
+        'post_id' => 'required|exists:posts,id',
+      ]);
     }
 }

@@ -6,7 +6,6 @@
       <h1>New post</h1>
     </div>
   </header>
-  @include('includes._errors')
   <x-form action="{{ route('posts.store') }}" method="post" name="post-create" novalidate>
     <div>
       <label for="title">Title:</label>
