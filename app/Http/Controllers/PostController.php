@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Rating;
 use App\Models\Category;
-use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
@@ -37,20 +38,18 @@ class PostController extends Controller
    */
   public function store(Request $request)
   {
-    $post = Post::create([
-      'title' => request('title'),
-      'slug' => request('slug'),
-      'body' => request('body'),
-      'category_id' => request('category_id'),
-      'published_at' => request('published_at'),
-    ]);
+    $this->validatePost();
 
-    Rating::create([
-      'score' => request('score'),
-      'post_id' => $post->id,
-    ]);
+    DB::transaction(function () {
+      $post = Post::create(request(['title', 'slug', 'body', 'category_id', 'published_at']));
 
-    $post->tags()->attach(request('tags'));
+      Rating::create([
+        'score' => request('score'),
+        'post_id' => $post->id,
+      ]);
+
+      $post->tags()->attach(request('tags'));
+    });
 
     return redirect(route('posts.index'));
   }
@@ -60,7 +59,6 @@ class PostController extends Controller
    */
   public function show(Post $post)
   {
-    //$score = Rating::find($post->rating_id)->score;
     return view('posts.show', compact('post'));
   }
 
@@ -79,17 +77,15 @@ class PostController extends Controller
    */
   public function update(Post $post)
   {
-    $post->update([
-      'title' => request('title'),
-      'slug' => request('slug'),
-      'body' => request('body'),
-      'category_id' => request('category_id'),
-      'published_at' => request('published_at'),
-    ]);
+    $this->validatePost();
 
-    $post->tags()->sync(request('tags'));
+    DB::transaction(function () use ($post) {
+      $post->update(request(['title', 'slug', 'body', 'category_id', 'published_at']));
 
-    Rating::where('post_id', $post->id)->update(['score' => request('score')]);
+      $post->tags()->sync(request('tags'));
+
+      Rating::where('post_id', $post->id)->update(['score' => request('score')]);
+    });
 
     return redirect(route('posts.index'));
   }
@@ -109,5 +105,17 @@ class PostController extends Controller
   public function getCategorysPostsFromTo($category, $from, $to = null)
   {
     return Post::getFilteredPosts($category, $from, $to);
+  }
+
+  function validatePost() : array {
+    return request()->validate([
+      'title' => 'required|min:5|max:100',
+      'slug' => 'required|max:255|regex:/^[a-z]+[-]{1}[a-z]+$/',
+      'body' => 'required',
+      'published_at' => 'required',
+      'score' => 'required|numeric|between:1.0,10.0',
+      'category_id' => 'required|exists:categories,id',
+      'tags' => 'required|exists:tags,id',
+    ]);
   }
 }
