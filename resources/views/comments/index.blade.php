@@ -7,6 +7,7 @@
             <a href="{{ route('comments.create') }}">Create</a>
         </div>
     </header>
+    @include('includes._errors')
     <table>
         <thead>
             <tr>

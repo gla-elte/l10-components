@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CommentController extends Controller
 {
@@ -60,9 +61,29 @@ class CommentController extends Controller
      */
     public function update(Comment $comment)
     {
-        $comment->update($this->validateComment());
+      $validator = Validator::make(
+        request()->all(),
+        [
+          'username' => 'required|max:255',
+          'content' => 'required',
+          'post_id' => 'required|exists:posts,id',
+        ],
+        [
+          'post_id.exists' => 'Missing :attribute in posts table'
+        ],
+        [
+          'post_id' => 'post identification'
+        ]
+      );
 
-        return redirect(route('comments.index'));
+      if ($validator->fails()) {
+        return redirect(route('comments.index'))
+          ->withErrors($validator);
+      }
+
+      $comment->update(request()->all());
+
+      return redirect(route('comments.index'));
     }
 
     /**
@@ -70,9 +91,9 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        $comment->delete();
+      $comment->delete();
 
-        return redirect(route('comments.index'));
+      return redirect(route('comments.index'));
     }
 
     function validateComment() : array {
