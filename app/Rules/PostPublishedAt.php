@@ -17,7 +17,7 @@ class PostPublishedAt implements ValidationRule
     if(date('Y-m-d', strtotime($value)) > now()->format('Y-m-d')) {
       $fail('validation.before_or_equal')->translate([
         'attribute' => $attribute
-      ], 'de');
+      ], 'en');
     }
   }
 }
