@@ -7,6 +7,7 @@ use App\Models\Tag;
 use App\Models\Post;
 use App\Models\Rating;
 use App\Models\Category;
+use App\Rules\PostPublishedAt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -112,7 +113,7 @@ class PostController extends Controller
       'title' => 'required|min:5|max:100',
       'slug' => 'required|max:255|regex:/^[a-z]+[-]{1}[a-z]+$/',
       'body' => 'required',
-      'published_at' => 'required',
+      'published_at' => ['required', new PostPublishedAt], // before_or_equal:today vagy before:tomorrow
       'score' => 'required|numeric|between:1.0,10.0',
       'category_id' => 'required|exists:categories,id',
       'tags' => 'required|exists:tags,id',
