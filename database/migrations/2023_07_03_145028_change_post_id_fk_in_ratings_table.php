@@ -12,7 +12,9 @@ return new class extends Migration
   public function up(): void
   {
     Schema::table('ratings', function (Blueprint $table) {
-      $table->dropForeign('ratings_post_id_foreign');
+      if (DB::getDriverName() !== 'sqlite') {
+        $table->dropForeign('ratings_post_id_foreign');
+      }
       $table->foreign('post_id')->references('id')->on('posts')->cascadeOnUpdate()->cascadeOnDelete();
     });
   }
@@ -23,7 +25,9 @@ return new class extends Migration
   public function down(): void
   {
     Schema::table('ratings', function (Blueprint $table) {
-      $table->dropForeign('ratings_post_id_foreign');
+      if (DB::getDriverName() !== 'sqlite') {
+        $table->dropForeign('ratings_post_id_foreign');
+      }
       $table->foreign('post_id')->references('id')->on('posts')->restrictOnUpdate()->restrictOnDelete();
     });
   }
