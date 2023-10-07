@@ -23,7 +23,9 @@ return new class extends Migration
   public function down(): void
   {
     Schema::table('posts', function (Blueprint $table) {
-      $table->dropForeign('posts_rating_id_foreign');
+      if (DB::getDriverName() !== 'sqlite') {
+        $table->dropForeign('posts_rating_id_foreign');
+      }
       $table->dropColumn('rating_id');
     });
   }
