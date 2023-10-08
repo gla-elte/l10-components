@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,8 +22,10 @@ use App\Http\Controllers\CategoryController;
 */
 
 Route::get('/', function () {
-  return view('welcome');
-});
+  return view('home', [
+    'posts' => Post::paginate(3),
+  ]);
+})->name('home');
 
 Route::get('/post', function () {
   return view('post');
@@ -166,5 +168,9 @@ Route::get('/post/{post}/rating', function ($post) {
 Route::resource('categories', CategoryController::class);
 
 Route::resource('posts', PostController::class);
+// Route::get('/posts/{post:slug}',[PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/{category:name}/{from}/{to?}', [PostController::class, 'getCategorysPostsFromTo']);
 
 Route::resource('tags', TagController::class);
+
+Route::resource('comments', CommentController::class);

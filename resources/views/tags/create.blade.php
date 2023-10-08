@@ -1,18 +1,23 @@
-<form action="{{ route('tags.store') }}" method="post">
-  @csrf
-  <div>
-    <label for="name">Cimke neve:</label>
-    <input type="text" name="name" id="name" />
-  </div>
-  <div>
-    <label for="posts">Blogbejegyzései:</label>
-    <select name="posts[]" id="posts" multiple>
-      @forelse ($posts as $post)
-        <option value="{{ $post->id }}">{{ $post->title }}</option>
-      @empty
-        <option value="0">Nincs még olyan blogbejegyzés, ami ehhez a címkéhez tartozna a blogon</option>
-      @endforelse
-    </select>
-  </div>
-  <input type="submit" value="Mentés">
-</form>
+@extends('app')
+@section('main')
+<article class="tag">
+  <header>
+    <div class="title">
+      <h1>New tag</h1>
+    </div>
+  </header>
+  <x-form action="{{ route('tags.store') }}" method="post" novalidate>
+    <p>
+      <label for="name">Tag's name:</label>
+      <input type="text" name="name" id="name" required maxlength="255" />
+      <x-input-error for="name" />
+    </p>
+    <p>
+      <label for="posts">Related posts:</label>
+      <x-select name="posts[]" id="posts" :options="$posts" multiple size="10" style="height: 100%" required :selectedValues="collect(old('posts'))"/>
+      <x-input-error for="posts" />
+    </p>
+    <input type="submit" value="Save">
+  </x-form>
+</article>
+@endsection

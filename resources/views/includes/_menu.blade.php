@@ -9,32 +9,28 @@
 
     <!-- Links -->
     <section>
-        <ul class="links">
-            <li>
-                <a href="#">
-                    <h3>Lorem ipsum</h3>
-                    <p>Feugiat tempus veroeros dolor</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <h3>Dolor sit amet</h3>
-                    <p>Sed vitae justo condimentum</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <h3>Feugiat veroeros</h3>
-                    <p>Phasellus sed ultricies mi congue</p>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <h3>Etiam sed consequat</h3>
-                    <p>Porta lectus amet ultricies</p>
-                </a>
-            </li>
-        </ul>
+      <ul class="links">
+        <x-nav-link
+          url="{{ route('categories.index') }}"
+          title="Categories"
+          description="List of categories"
+        />
+        <x-nav-link
+          url="{{ route('tags.index') }}"
+          title="Tags"
+          description="List of tags"
+        />
+        <x-nav-link
+          url="{{ route('posts.index') }}"
+          title="Posts"
+          description="List of posts"
+        />
+        <x-nav-link
+          url="{{ route('comments.index') }}"
+          title="Comments"
+          description="List of comments"
+        />
+      </ul>
     </section>
 
     <!-- Actions -->

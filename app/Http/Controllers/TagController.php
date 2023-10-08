@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TagController extends Controller
 {
@@ -24,7 +25,7 @@ class TagController extends Controller
   public function create()
   {
     return view('tags.create', [
-        'posts' => Post::orderBy('title')->get(),
+        'posts' => Post::getPostsForSelectOptions(),
     ]);
   }
 
@@ -33,9 +34,11 @@ class TagController extends Controller
    */
   public function store(Request $request)
   {
+    $this->validateTag();
+
     Tag::create([
       'name' => request('name')
-    ])->posts()->attach('posts');
+    ])->posts()->attach(request('posts'));
 
     return redirect(route('tags.index'));
   }
@@ -53,7 +56,7 @@ class TagController extends Controller
    */
   public function edit(Tag $tag)
   {
-    $posts = Post::orderBy('title')->get();
+    $posts = Post::getPostsForSelectOptions();
     return view('tags.edit', compact('tag', 'posts'));
   }
 
@@ -62,11 +65,13 @@ class TagController extends Controller
    */
   public function update(Tag $tag)
   {
-    $tag->update([
-      'name' => request('name')
-    ]);
+    $this->validateTag();
 
-    $tag->posts()->sync(request('posts'));
+    DB::transaction(function () use ($tag) {
+      $tag->update(request(['name']));
+
+      $tag->posts()->sync(request('posts'));
+    });
 
     return redirect(route('tags.index'));
   }
@@ -79,5 +84,12 @@ class TagController extends Controller
     $tag->delete();
 
     return redirect(route('tags.index'));
+  }
+
+  function validateTag() : array {
+    return request()->validate([
+      'name' => 'required|max:255|unique:tags',
+      'posts' => 'required|exists:posts,id',
+    ]);
   }
 }

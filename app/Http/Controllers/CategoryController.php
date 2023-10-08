@@ -9,21 +9,13 @@ class CategoryController extends Controller
 {
   public function index()
   {
-    //   $categories = Category::get(); // Adatbázis lekérdezés: SELECT * FROM categories;
-    //   $categories = Category::take(10)->get(); // SELECT * FROM categories LIMIT 10;
-    //   $categories = Category::where('created_at', '>=', now()->subMonth()->startOfMonth())->get(); // SELECT * FROM categories WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH);
-    //   $categories = Category::paginate(5); // lapozhatóság: 5 kategória egy lapon
-    //   $categories = Category::latest('created_at')->get(); // SELECT * FROM categories ORDER BY created_at DESC;
-    //   return $categories;
-
     return view('categories.index', [
       'categories' => Category::orderBy('name')->get()
     ]);
   }
 
-  public function show($id)
+  public function show(Category $category)
   {
-    $category = Category::findOrFail($id);
     return view('categories.show', compact('category'));
   }
 
@@ -34,35 +26,34 @@ class CategoryController extends Controller
 
   public function store()
   {
-    // dd(request()->all());
-    Category::create([
-      'name' => request('name')
-    ]);
-
-    return redirect('categories');
+    Category::create($this->validateCategory());
+    return redirect(route('categories.index'));
   }
 
-  public function edit($id)
+  public function edit(Category $category)
   {
-    $category = Category::findOrFail($id);
     return view('categories.edit', compact('category'));
   }
 
-  public function update($id)
+  public function update(Category $category)
   {
-    $category = Category::findOrFail($id);
-    $category->update([
-      'name' => request('name')
-    ]);
-
-    return redirect('categories');
+    $category->update($this->validateCategory());
+    return redirect(route('categories.index'));
   }
 
-  public function destroy($id)
+  public function destroy(Category $category)
   {
-    $category = Category::findOrFail($id);
     $category->delete();
+    return redirect(route('categories.index'));
+  }
 
-    return redirect('categories');
+  function validateCategory() : array {
+    return request()->validate([
+      'name' => 'required|max:255|unique:categories',
+    ], [
+      'required' => 'The Category\'s name is required.',
+      'max' => 'The Category\'s name could be maximum :max characters.',
+      'unique' => 'The Category\'s name must be unique in categories table.',
+    ]);
   }
 }

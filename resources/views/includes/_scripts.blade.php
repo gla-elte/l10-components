@@ -4,3 +4,4 @@
 <script src="{{ Vite::asset('resources/js/util.js') }}"></script>
 <script src="{{ Vite::asset('resources/js/main.js') }}"></script>
 
+@stack('validation-scripts')

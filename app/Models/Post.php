@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 // importálás az osztály előtt:
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Post extends Model
 {
@@ -15,6 +17,8 @@ class Post extends Model
 
   protected $fillable = ['title', 'slug', 'body', 'published_at', 'rating_id', 'category_id'];
   // protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
+
+  protected $with = ['tags', 'comments'];
 
     public function rating()
     {
@@ -36,5 +40,27 @@ class Post extends Model
   public function tags()
   {
     return $this->belongsToMany(Tag::class)->withTimestamps();
+  }
+
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
+  public static function getFilteredPosts($category, $from, $to = null)
+  {
+    if($to == null) $to = Carbon::tomorrow();
+
+    return DB::table('posts')
+      ->select('title', 'slug', 'body', 'published_at', 'name')
+      ->join('categories', 'posts.category_id', 'categories.id')
+      ->where('name', $category)
+      ->whereBetween('published_at', [$from, $to])
+      ->get();
+  }
+
+  public static function getPostsForSelectOptions()
+  {
+    return Post::orderBy('title')->get(['id', 'title'])->pluck('title', 'id');
   }
 }
