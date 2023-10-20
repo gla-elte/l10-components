@@ -42,7 +42,7 @@
       <x-select name="tags[]" id="tags" :options="$tags" multiple size="10" style="height: 100%" required :selectedValues="collect(old('tags'))" />
       <x-input-error for="tags" />
     </div>
-    <input type="submit" value="Save">
+    <input type="submit" value="Save" dusk="save-button">
   </x-form>
 </article>
 @endsection

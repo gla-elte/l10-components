@@ -102,4 +102,24 @@ class CategoryTest extends TestCase
     $this->assertDatabaseMissing('categories', $category->toArray());
     $this->assertDatabaseCount('categories', 0);
   }
+
+  function test_category_update_validation_error_redirects_back_to_form()
+  {
+    $category = Category::factory()->create();
+
+    $category->name = '';
+
+    $response = $this->put('categories/' . $category->id, $category->toArray());
+
+    $response->assertStatus(302); // redirect back to the form
+    $response->assertSessionHasErrors(['name']);
+  }
+
+  function test_categories_page()
+  {
+    $response = $this->get('/categories');
+
+    $response->assertSee('Categories');
+    $response->assertDontSee('CATEGORIES');
+  }
 }
