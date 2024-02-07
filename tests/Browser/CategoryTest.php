@@ -19,4 +19,15 @@ class CategoryTest extends DuskTestCase
         ->assertSee('Science');
     });
   }
+
+  public function test_a_required_input_field_must_be_filled()
+  {
+    $this->browse(function (Browser $browser) {
+      $messages = $browser
+        ->visit('/categories/create')
+        ->script("return document.querySelector('#nev').validationMessage");
+
+      $this->assertEquals('Kérjük, töltse ki ezt a mezőt.', $messages[0]);
+    });
+  }
 }

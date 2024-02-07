@@ -10,7 +10,7 @@
     method="post"
     action="{{ route('categories.store') }}"
     {{-- style="background-color: lightgray" --}}
-    novalidate
+    {{-- novalidate --}}
     >
     <p>
       <label for="nev">Category's name:</label>
