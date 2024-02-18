@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreUpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -24,9 +25,9 @@ class CategoryController extends Controller
     return view('categories.create');
   }
 
-  public function store()
+  public function store(StoreUpdateCategoryRequest $request)
   {
-    Category::create($this->validateCategory());
+    Category::create($request->safe()->only(['name']));
     return redirect(route('categories.index'));
   }
 
@@ -35,9 +36,9 @@ class CategoryController extends Controller
     return view('categories.edit', compact('category'));
   }
 
-  public function update(Category $category)
+  public function update(StoreUpdateCategoryRequest $request, Category $category)
   {
-    $category->update($this->validateCategory());
+    $category->update($request->safe()->only(['name']));
     return redirect(route('categories.index'));
   }
 
@@ -45,15 +46,5 @@ class CategoryController extends Controller
   {
     $category->delete();
     return redirect(route('categories.index'));
-  }
-
-  function validateCategory() : array {
-    return request()->validate([
-      'name' => 'required|max:255|unique:categories',
-    ], [
-      'required' => 'The Category\'s name is required.',
-      'max' => 'The Category\'s name could be maximum :max characters.',
-      'unique' => 'The Category\'s name must be unique in categories table.',
-    ]);
   }
 }

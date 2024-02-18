@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\StoreUpdateTagRequest;
 
 class TagController extends Controller
 {
@@ -32,13 +33,11 @@ class TagController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(Request $request)
+  public function store(StoreUpdateTagRequest $request)
   {
-    $this->validateTag();
-
-    Tag::create([
-      'name' => request('name')
-    ])->posts()->attach(request('posts'));
+    Tag::create(
+        $request->safe()->only(['name'])
+    )->posts()->attach(request('posts'));
 
     return redirect(route('tags.index'));
   }
@@ -63,12 +62,10 @@ class TagController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(Tag $tag)
+  public function update(StoreUpdateTagRequest $request, Tag $tag)
   {
-    $this->validateTag();
-
-    DB::transaction(function () use ($tag) {
-      $tag->update(request(['name']));
+    DB::transaction(function () use ($tag, $request) {
+      $tag->update($request->safe()->only(['name']));
 
       $tag->posts()->sync(request('posts'));
     });

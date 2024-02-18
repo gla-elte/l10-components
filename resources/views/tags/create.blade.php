@@ -9,7 +9,7 @@
   <x-form action="{{ route('tags.store') }}" method="post" novalidate>
     <p>
       <label for="name">Tag's name:</label>
-      <input type="text" name="name" id="name" required maxlength="255" />
+      <input type="text" name="name" id="name" required maxlength="255" value="{{ old('name') }}" />
       <x-input-error for="name" />
     </p>
     <p>
