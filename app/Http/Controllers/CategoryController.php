@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreUpdateCategoryRequest;
+use App\Http\Requests\StoreCategoryRequest;
+use App\Http\Requests\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -25,7 +26,7 @@ class CategoryController extends Controller
     return view('categories.create');
   }
 
-  public function store(StoreUpdateCategoryRequest $request)
+  public function store(StoreCategoryRequest $request)
   {
     Category::create($request->safe()->only(['name']));
     return redirect(route('categories.index'));
@@ -36,7 +37,7 @@ class CategoryController extends Controller
     return view('categories.edit', compact('category'));
   }
 
-  public function update(StoreUpdateCategoryRequest $request, Category $category)
+  public function update(UpdateCategoryRequest $request, Category $category)
   {
     $category->update($request->safe()->only(['name']));
     return redirect(route('categories.index'));

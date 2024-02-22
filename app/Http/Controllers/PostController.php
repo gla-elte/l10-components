@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreUpdatePostRequest;
+use App\Http\Requests\StorePostRequest;
+use App\Http\Requests\UpdatePostRequest;
 use Carbon\Carbon;
 use App\Models\Tag;
 use App\Models\Post;
@@ -38,7 +39,7 @@ class PostController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(StoreUpdatePostRequest $request)
+  public function store(StorePostRequest $request)
   {
     DB::transaction(function () use ($request) {
       $post = Post::create($request->safe()->only(['title', 'slug', 'body', 'category_id', 'published_at']));
@@ -75,7 +76,7 @@ class PostController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(StoreUpdatePostRequest $request, Post $post)
+  public function update(UpdatePostRequest $request, Post $post)
   {
     DB::transaction(function () use ($post, $request) {
       $post->update($request->safe()->only(['title', 'slug', 'body', 'category_id', 'published_at']));

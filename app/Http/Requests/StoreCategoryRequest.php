@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateCommentRequest extends FormRequest
+class StoreCategoryRequest extends FormRequest
 {
   /**
    * Determine if the user is authorized to make this request.
@@ -22,21 +23,17 @@ class StoreUpdateCommentRequest extends FormRequest
   public function rules(): array
   {
     return [
-      'username' => 'required|max:255',
-      'content' => 'required',
-      'post_id' => 'required|exists:posts,id',
+    //   'name' => 'required|max:255|unique:categories',
+      'name' => ['required', 'max:255', Rule::unique('categories')->ignore($this->category)],
     ];
   }
 
-  public function messages() : array {
+  public function messages()
+  {
     return [
-      'post_id.exists' => 'Missing :attribute in posts table'
-    ];
-  }
-
-  public function attributes() : array {
-    return [
-      'post_id' => 'post identification'
+      'required' => 'The Category\'s name is required.',
+      'max' => 'The Category\'s name could be maximum :max characters.',
+      'unique' => 'The Category\'s name must be unique in categories table.',
     ];
   }
 }

@@ -6,7 +6,8 @@ use App\Models\Tag;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\StoreUpdateTagRequest;
+use App\Http\Requests\StoreTagRequest;
+use App\Http\Requests\UpdateTagRequest;
 
 class TagController extends Controller
 {
@@ -33,7 +34,7 @@ class TagController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(StoreUpdateTagRequest $request)
+  public function store(StoreTagRequest $request)
   {
     Tag::create(
         $request->safe()->only(['name'])
@@ -62,7 +63,7 @@ class TagController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(StoreUpdateTagRequest $request, Tag $tag)
+  public function update(UpdateTagRequest $request, Tag $tag)
   {
     DB::transaction(function () use ($tag, $request) {
       $tag->update($request->safe()->only(['name']));

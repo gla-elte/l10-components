@@ -6,7 +6,8 @@ use App\Models\Post;
 use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use App\Http\Requests\StoreUpdateCommentRequest;
+use App\Http\Requests\StoreCommentRequest;
+use App\Http\Requests\UpdateCommentRequest;
 
 class CommentController extends Controller
 {
@@ -33,7 +34,7 @@ class CommentController extends Controller
   /**
    * Store a newly created resource in storage.
    */
-  public function store(StoreUpdateCommentRequest $request)
+  public function store(StoreCommentRequest $request)
   {
     // Comment::create($this->validateComment());
     Comment::create($request->safe()->only(['username', 'content', 'post_id']));
@@ -61,7 +62,7 @@ class CommentController extends Controller
   /**
    * Update the specified resource in storage.
    */
-  public function update(Comment $comment, StoreUpdateCommentRequest $request)
+  public function update(Comment $comment, UpdateCommentRequest $request)
   {
     //   $validator = Validator::make(
     //     request()->all(),
