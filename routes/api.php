@@ -2,6 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\PostController;
+use App\Http\Controllers\Api\V1\TagController;
+use App\Http\Controllers\Api\V1\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +19,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+  Route::apiResource('categories', CategoryController::class);
+  Route::apiResource('posts', PostController::class);
+  Route::apiResource('tags', TagController::class);
+  Route::apiResource('comments', CommentController::class);
 });
