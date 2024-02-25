@@ -24,6 +24,10 @@ class CategoryController extends Controller
 
   public function show(Category $category)
   {
+    if( request('includePosts') )
+    {
+      return CategoryResource::make($category->loadMissing('posts'));
+    }
     return CategoryResource::make($category);
   }
 }
