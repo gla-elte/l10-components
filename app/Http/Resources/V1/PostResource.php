@@ -20,7 +20,6 @@ class PostResource extends JsonResource
       'slug' => $this->slug,
       'body' => $this->body,
       'publishedAt' => $this->published_at,
-      'ratingId' => $this->rating_id,
       'categoryId' => $this->category_id,
     ];
   }

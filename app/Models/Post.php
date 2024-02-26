@@ -15,7 +15,7 @@ class Post extends Model
   // tényleges használat az osztályon belül:
   use HasFactory, SoftDeletes;
 
-  protected $fillable = ['title', 'slug', 'body', 'published_at', 'rating_id', 'category_id'];
+  protected $fillable = ['title', 'slug', 'body', 'published_at', 'category_id'];
   // protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
   protected $with = ['tags', 'comments'];
