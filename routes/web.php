@@ -9,6 +9,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -174,3 +175,5 @@ Route::get('/posts/{category:name}/{from}/{to?}', [PostController::class, 'getCa
 Route::resource('tags', TagController::class);
 
 Route::resource('comments', CommentController::class);
+
+Route::resource('projects', ProjectController::class)->only('store', 'update', 'destroy');

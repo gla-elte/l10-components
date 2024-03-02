@@ -6,6 +6,7 @@
             <li><a href="{{ route('tags.index')}}">Tags</a></li>
             <li><a href="{{ route('posts.index')}}">Posts</a></li>
             <li><a href="{{ route('comments.index')}}">Comments</a></li>
+            <li><a href="{{ route('projects.index')}}">Projects</a></li>
         </ul>
     </nav>
     <nav class="main">

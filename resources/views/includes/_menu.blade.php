@@ -30,6 +30,11 @@
           title="Comments"
           description="List of comments"
         />
+        <x-nav-link
+            url="{{ route('projects.index') }}"
+            title="Projects"
+            description="List of projects"
+        />
       </ul>
     </section>
 
