@@ -24,23 +24,23 @@ class PostController extends Controller
     return PostResource::make($post);
   }
 
-public function store(StorePostRequest $request)
-{
-  $post = DB::transaction(function () use ($request) {
-    $post = Post::create($request->safe()->only(['title', 'slug', 'body', 'category_id', 'published_at']));
+    public function store(StorePostRequest $request)
+    {
+    $post = DB::transaction(function () use ($request) {
+        $post = Post::create($request->safe()->only(['title', 'slug', 'body', 'category_id', 'published_at']));
 
-    Rating::create([
-      'score' => $request->score,
-      'post_id' => $post->id,
-    ]);
+        Rating::create([
+        'score' => $request->score,
+        'post_id' => $post->id,
+        ]);
 
-    $post->tags()->attach($request->tags);
+        $post->tags()->attach($request->tags);
 
-    return $post;
-  });
+        return $post;
+    });
 
-  return PostResource::make($post);
-}
+    return PostResource::make($post);
+    }
 
   public function update(Post $post, UpdatePostRequest $request)
   {
