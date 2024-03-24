@@ -47,6 +47,11 @@ class Post extends Model
     return $this->hasMany(Comment::class);
   }
 
+  public function latestComment()
+  {
+    return $this->hasMany(Comment::class)->latest()->first(); // csak Laravel 11-ben működik a felhasználása
+  }
+
   public static function getFilteredPosts($category, $from, $to = null)
   {
     if($to == null) $to = Carbon::tomorrow();

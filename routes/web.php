@@ -51,6 +51,15 @@ Route::get('/eloquent-post', function () {
   dd($post);
 });
 
+Route::get('/eloquent-posts-with-comments', function () {
+  $posts = Post::withOnly([
+    'comments'// => fn ($query) => $query->latest()->first()
+  ])->paginate(2);
+//   $posts = Post::with('latestComment')->paginate(2); // csak Laravel 11-ben működik
+  dump($posts[0]->comments);
+  dump($posts[1]->comments);
+});
+
 Route::get('/filtered-posts', function () {
   $posts = DB::table('posts')
     // ->where('published_at', '<', '2023-04-11')
@@ -174,6 +183,10 @@ Route::get('/posts/{category:name}/{from}/{to?}', [PostController::class, 'getCa
 
 Route::resource('tags', TagController::class);
 
-Route::resource('comments', CommentController::class);
+Route::resource('comments', CommentController::class)->middleware('auth');
 
 Route::resource('projects', ProjectController::class)->only('store', 'update', 'destroy');
+
+Route::get('/profile', function () {
+  return "My profile";
+})->middleware('auth');
