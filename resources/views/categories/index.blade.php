@@ -4,21 +4,27 @@
   <header>
     <div class="title">
       <h1>Categories</h1>
-      <a href="{{ route('categories.create') }}">Create</a>
+      @auth
+        <a href="{{ route('categories.create') }}">Create</a>
+      @endauth
     </div>
   </header>
   <table>
     <thead>
       <tr>
         <th>Name</th>
-        <th>Operations</th>
+        @auth
+          <th>Operations</th>
+        @endauth
       </tr>
     </thead>
     <tbody>
     @foreach ($categories as $category)
       <tr>
         <td><a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a></td>
-        <td><a href="{{ route('categories.edit', $category->id) }}">Edit</a></td>
+        @auth
+          <td><a href="{{ route('categories.edit', $category->id) }}">Edit</a></td>
+        @endauth
       </tr>
     @endforeach
     </tbody>
