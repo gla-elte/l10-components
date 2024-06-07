@@ -6,10 +6,24 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Category;
+use App\Models\User;
 
 class CategoryTest extends TestCase
 {
   use RefreshDatabase;
+
+private User $user;
+
+protected function setUp() : void
+{
+  parent::setUp();
+  $this->user = $this->createUser();
+}
+
+private function createUser() : User
+{
+  return User::factory()->create();
+}
 
   public function test_category_index_contains_non_empty_table()
   {
@@ -44,6 +58,11 @@ class CategoryTest extends TestCase
 
   public function test_visitor_can_access_category_create_page()
   {
+    // Létrehozunk egy teszt felhasználót
+    // $user = User::factory()->create();
+
+    // Szimuláljuk a bejelentkezést
+    $this->actingAs($this->user);
     $response = $this->get('/categories/create');
     $response->assertStatus(200);
   }
@@ -54,6 +73,11 @@ class CategoryTest extends TestCase
       'name' => 'Category 123',
     ];
 
+    // Létrehozunk egy teszt felhasználót
+    // $user = User::factory()->create();
+
+    // Szimuláljuk a bejelentkezést
+    $this->actingAs($this->user);
     $response = $this->post('/categories', $category);
 
     $response->assertStatus(302);
@@ -68,6 +92,11 @@ class CategoryTest extends TestCase
   public function test_category_edit_with_correct_value(): void
   {
     $category = Category::factory()->create();
+    // Létrehozunk egy teszt felhasználót
+    // $user = User::factory()->create();
+
+    // Szimuláljuk a bejelentkezést
+    $this->actingAs($this->user);
 
     $response = $this->get('/categories/' . $category->id . '/edit');
 
@@ -80,6 +109,11 @@ class CategoryTest extends TestCase
   public function test_update_category_successful()
   {
     $category = Category::factory()->create();
+    // Létrehozunk egy teszt felhasználót
+    // $user = User::factory()->create();
+
+    // Szimuláljuk a bejelentkezést
+    $this->actingAs($this->user);
 
     $category->name = 'Updated Name';
 
@@ -93,6 +127,11 @@ class CategoryTest extends TestCase
   public function test_category_delete_successful()
   {
     $category = Category::factory()->create();
+    // Létrehozunk egy teszt felhasználót
+    // $user = User::factory()->create();
+
+    // Szimuláljuk a bejelentkezést
+    $this->actingAs($this->user);
 
     $response = $this->delete('categories/' . $category->id);
 
@@ -106,6 +145,11 @@ class CategoryTest extends TestCase
   function test_category_update_validation_error_redirects_back_to_form()
   {
     $category = Category::factory()->create();
+    // Létrehozunk egy teszt felhasználót
+    // $user = User::factory()->create();
+
+    // Szimuláljuk a bejelentkezést
+    $this->actingAs($this->user);
 
     $category->name = '';
 
@@ -121,5 +165,12 @@ class CategoryTest extends TestCase
 
     $response->assertSee('Categories');
     $response->assertDontSee('CATEGORIES');
+  }
+
+  function test_a_visitor_cant_see_the_create_category_page()
+  {
+    $response = $this->get('/categories/create');
+    $response->assertStatus(302);
+    $response->assertRedirect('login');
   }
 }
