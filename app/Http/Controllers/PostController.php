@@ -60,6 +60,10 @@ class PostController extends Controller
    */
   public function show(Post $post)
   {
+    //abort_if($post->owner_id !== auth()->id(), 403);
+    //abort_if(!auth()->user()->owns($post), 403);
+    abort_unless(auth()->user()->owns($post), 403);
+
     return view('posts.show', compact('post'));
   }
 

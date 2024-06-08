@@ -15,7 +15,7 @@ class Post extends Model
   // tényleges használat az osztályon belül:
   use HasFactory, SoftDeletes;
 
-  protected $fillable = ['title', 'slug', 'body', 'published_at', 'category_id'];
+  protected $fillable = ['title', 'slug', 'body', 'published_at', 'category_id', 'author_id'];
   // protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
 
   protected $with = ['tags', 'comments'];
@@ -35,6 +35,10 @@ class Post extends Model
 
   public function category() {
     return $this->belongsTo(Category::class);
+  }
+
+  public function author() {
+    return $this->belongsTo(User::class, 'author_id');
   }
 
   public function tags()
