@@ -26,12 +26,18 @@ class AuthServiceProvider extends ServiceProvider
    */
   public function boot(): void
   {
+    Gate::before(function (User $user) {
+      if ($user->isAdmin) {
+        return true;
+      }
+    });
+
     Gate::define('admin', function (User $user) {
       return $user->isAdmin;
     });
 
     Gate::define('update-post', function (User $user, Post $post) {
-      return $user->isAdmin || $user->id === $post->author_id
+      return $user->id === $post->author_id
         ? Response::allow()
         : Response::deny('You must be the post\'s author or an adminstrator.');
     });
