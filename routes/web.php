@@ -4,12 +4,13 @@
 
 use App\Models\Post;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\PostController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -190,3 +191,10 @@ Route::resource('projects', ProjectController::class)->only('store', 'update', '
 Route::get('/profile', function () {
   return "My profile";
 })->middleware('auth');
+
+Route::get('/admin-panel', function () {
+  if (Gate::allows('admin')) {
+    return "Admin Panel";
+  }
+  abort(403);
+});

@@ -12,6 +12,7 @@ use App\Models\Category;
 use App\Rules\PostPublishedAt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -74,7 +75,7 @@ class PostController extends Controller
   {
     $categories = Category::orderBy('name')->get(['id', 'name'])->pluck('name', 'id');
     $tags = Tag::orderBy('name')->get(['id', 'name'])->pluck('name', 'id');
-    return view('posts.edit', compact('post','categories', 'tags'));
+    return view('posts.edit', compact('post', 'categories', 'tags'));
   }
 
   /**
@@ -82,15 +83,23 @@ class PostController extends Controller
    */
   public function update(UpdatePostRequest $request, Post $post)
   {
-    DB::transaction(function () use ($post, $request) {
-      $post->update($request->safe()->only(['title', 'slug', 'body', 'category_id', 'published_at']));
+    $response = Gate::inspect('update-post', $post);
 
-      $post->tags()->sync($request->tags);
+    if ($response->allowed()) {
+      DB::transaction(function () use ($post, $request) {
+        $post->update($request->safe()->only(['title', 'slug', 'body', 'category_id', 'published_at']));
 
-      Rating::where('post_id', $post->id)->update(['score' => $request->score]);
-    });
+        $post->tags()->sync($request->tags);
 
-    return redirect(route('posts.index'));
+        Rating::where('post_id', $post->id)->update(['score' => $request->score]);
+      });
+
+      return redirect(route('posts.index'));
+    }
+    else {
+      echo $response->message();
+    }
+    // abort(403);
   }
 
   /**

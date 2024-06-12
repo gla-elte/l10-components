@@ -22,7 +22,11 @@
                         <td><a href="{{ route('posts.show', $post->id) }}">{{ $post->title }}</a></td>
                         <td>{{ $post->tags->count() }}</td>
                         <td>{{ $post->comments->count() }}</td>
-                        <td><a href="{{ route('posts.edit', $post->id) }}">Edit</a></td>
+                        <td>
+                          @can('update-post', $post)
+                            <a href="{{ route('posts.edit', $post->id) }}">Edit</a>
+                          @endcan
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
