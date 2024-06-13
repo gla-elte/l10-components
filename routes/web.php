@@ -184,7 +184,33 @@ Route::get('/posts/{category:name}/{from}/{to?}', [PostController::class, 'getCa
 
 Route::resource('tags', TagController::class);
 
-Route::resource('comments', CommentController::class)->middleware('auth');
+// Route::resource('comments', CommentController::class)->middleware('auth');
+
+Route::get('/comments', [CommentController::class, 'index'])
+  ->can('viewAny', App\Models\Comment::class)
+  ->name('comments.index');
+
+Route::middleware('can:create')->group(function () {
+  Route::get('/comments/create', [CommentController::class, 'create'])
+    ->name('comments.create');
+  Route::post('/comments', [CommentController::class, 'store'])
+    ->name('comments.store');
+});
+
+Route::get('/comments/{comment}', [CommentController::class, 'show'])
+  ->can('view')
+  ->name('comments.show');
+
+Route::middleware('can:update')->group(function () {
+  Route::get('/comments/{comment}/edit', [CommentController::class, 'edit'])
+    ->name('comments.edit');
+  Route::put('/comments/{comment}', [CommentController::class, 'update'])
+    ->name('comments.update');
+});
+
+Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])
+  ->can('delete', 'comment')
+  ->name('comments.destroy');
 
 Route::resource('projects', ProjectController::class)->only('store', 'update', 'destroy');
 
