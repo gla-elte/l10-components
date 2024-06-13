@@ -22,9 +22,11 @@
     @foreach ($categories as $category)
       <tr>
         <td><a href="{{ route('categories.show', $category->id) }}">{{ $category->name }}</a></td>
-        @auth
-          <td><a href="{{ route('categories.edit', $category->id) }}">Edit</a></td>
-        @endauth
+        <td>
+          @can('update', $category)
+            <a href="{{ route('categories.edit', $category->id) }}">Edit</a>
+          @endcan
+        </td>
       </tr>
     @endforeach
     </tbody>

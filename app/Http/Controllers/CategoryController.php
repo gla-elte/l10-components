@@ -11,7 +11,8 @@ class CategoryController extends Controller
 {
   public function __construct()
   {
-    $this->middleware('auth')->except('index', 'show');
+    // $this->middleware('auth')->except('index', 'show');
+    $this->authorizeResource(Category::class, 'category');
   }
 
   public function index()
@@ -44,6 +45,12 @@ class CategoryController extends Controller
 
   public function update(UpdateCategoryRequest $request, Category $category)
   {
+    // if ($request->user()->cannot('update', $category)) {
+    //   abort(403);
+    // }
+
+    // $this->authorize('update', $category);
+
     $category->update($request->safe()->only(['name']));
     return redirect(route('categories.index'));
   }
